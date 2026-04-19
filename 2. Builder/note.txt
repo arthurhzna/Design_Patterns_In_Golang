@@ -14,4 +14,6 @@ Builder
 When piecewise object construction is complicated, provide an API for doing it succinctly.
 
 Summary
-so A builder is a separate component used for building an object so To make builder fluent, return the receiver — allows chaining so Different facets of an object can be built with different builders working in tandem via a common struct
+A builder is a separate component used for building an object 
+To make builder fluent, return the receiver — allows chaining
+Different facets of an object can be built with different builders working in tandem via a common struct
