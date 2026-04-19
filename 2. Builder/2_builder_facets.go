@@ -13,7 +13,7 @@ type PersonBuilder struct {
 }
 
 func NewPersonBuilder() *PersonBuilder {
-  return &PersonBuilder{&Person{}}
+  return &PersonBuilder{&Person{}} //init person struct
 }
 
 func (it *PersonBuilder) Build() *Person {
@@ -21,7 +21,7 @@ func (it *PersonBuilder) Build() *Person {
 }
 
 func (it *PersonBuilder) Works() *PersonJobBuilder {
-  return &PersonJobBuilder{*it}
+  return &PersonJobBuilder{*it} //just copy value of it, but inside it is a pointer to person struct
 }
 
 func (it *PersonBuilder) Lives() *PersonAddressBuilder {
@@ -75,7 +75,7 @@ func (it *PersonAddressBuilder) WithPostcode(
 func main() {
   pb := NewPersonBuilder()
   pb.
-    Lives().
+    Lives().  #
       At("123 London Road").
       In("London").
       WithPostcode("SW12BC").
