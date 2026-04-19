@@ -1,0 +1,10 @@
+bridge
+connecting component together throught abstraction
+
+Bridge prevents a 'Cartesian product' complexity explosion
+Example:
+• Common type ThreadScheduler
+• Can be preemptive or cooperative
+• Can run on Windows or Unix
+• End up with with a 2x2 scenario: WindowsPTS, UnixPTS, WindowsCTS, UnixCTS
+Bridge pattern avoids the entity explosion
