@@ -1,0 +1,89 @@
+Composite
+Treating individual and aggregate object unifromly
+
+Objects use other objects' fields/methods through embedding
+Composition lets us make compound objects
+    E.g., a mathematical expression composed of simple expressions; or 
+    A shape group made of several different shapes
+Composite design pattern is used to treat both single (scalar) and composite objects uniformly
+    I.e., Foo and []Foo have common APIs
+
+Composite
+A mechanism for treating individual (scalar) objects and compositions of objects in a uniform manner.
+
+
+| # | Form                         | Usage                | Auto Init on `Car{}` | Can be `nil` | Best Use Case                                       | Advantages                    | Disadvantages                          |
+| - | ---------------------------- | -------------------- | -------------------- | ------------ | --------------------------------------------------- | ----------------------------- | -------------------------------------- |
+| 1 | `Engine Engine`              | `car.Engine.Start()` | ✅ Yes (`Engine{}`)   | ❌ No         | Required dependency, small objects, explicit design | Safe, clear, easy to read     | Copies value, longer access            |
+| 2 | `Engine` (embedded value)    | `car.Start()`        | ✅ Yes (`Engine{}`)   | ❌ No         | Expose behavior directly, helper/component reuse    | Short API, promoted methods   | Can be ambiguous, less explicit        |
+| 3 | `Engine *Engine`             | `car.Engine.Start()` | ❌ No (`nil`)         | ✅ Yes        | Shared object, optional dependency, large objects   | Efficient, flexible           | Manual init required, nil panic risk   |
+| 4 | `*Engine` (embedded pointer) | `car.Start()`        | ❌ No (`nil`)         | ✅ Yes        | Wrapper, adapter, extend behavior                   | Short API + pointer semantics | More magical, nil risk, harder to read |
+
+Rule of Thumb
+If You Need	                                Choose
+Safest and clearest default	                Engine Engine
+Direct method access	                    Engine
+Large / optional / shared dependency	    Engine *Engine
+Wrapper / decorator behavior	            *Engine
+
+Common Real-World Go Usage
+Scenario	                                            Common Choice
+Backend service dependencies (DB, Logger, Config)	    named pointer field (*Type)
+Small domain models	                                    named value field
+Reusable utilities like mutex/logger	                embedded value
+Library wrapper/custom extension	                    embedded pointer
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+Composite Pattern Summary
+
+Use the Composite Pattern when objects form a hierarchical tree structure (parent-child relationships), where:
+
+a single object and
+a group of objects
+
+should be treated the same way through a common API.
+
+Best Fit Cases : 
+File and Folder systems
+Organization charts
+Comments and replies
+Shape groups
+Core Idea
+
+A container object can hold child objects of the same abstraction, and those children can contain more children recursively.
+
+Root
+├── Item A
+├── Item B
+│   ├── Child X
+│   └── Child Y
+└── Item C
+
+Benefits
+Simplifies recursive structures
+Uniform handling of single and grouped objects
+Cleaner client code
+Easy to extend
+Not Suitable For
+
+Use regular composition/association instead when objects are only related, but not hierarchical.
+
+Examples:
+
+User → Address
+Order → Payment
+Car → Engine
+
+These are relationships, but not recursive tree structures.
+
+One-Line Rule
+Use Composite when:
+
+An object can contain objects of the same abstraction, recursively.
+
+Objects can use other objects via composition
+Some composed and singular objects need similar/identical behaviors
+Composite design pattern lets us treat both types of objects uniformly
+Iteration supported with the Iterator design pattern
