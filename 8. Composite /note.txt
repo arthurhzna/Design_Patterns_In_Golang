@@ -87,3 +87,20 @@ Objects can use other objects via composition
 Some composed and singular objects need similar/identical behaviors
 Composite design pattern lets us treat both types of objects uniformly
 Iteration supported with the Iterator design pattern
+
+
+Children only = nested data
+
+Children + shared behavior = Composite candidate
+
+Why Behavior Matters
+
+Because the purpose of Composite is:
+
+Treat individual objects and groups of objects uniformly.
+
+Without shared behavior, there is no real reason to use the pattern
+
+One-Line Summary
+
+Composite = recursive children + shared behavior/interface
