@@ -1,0 +1,39 @@
+Decorator
+adding behavior without altering the type itself
+
+Want to augment an object with additional functionality
+Do not want to rewrite or alter existing code (OCP)
+Want to keep new functionality separate (SRP)
+Need to be able to interact with existing structures
+Solution: embed the decorated object and provide additional
+functionality
+
+Facilitates the addition of behaviors to individual objects through embedding.
+
+Decorator is used when the original object already matches the required interface.
+Decorator keeps the same interface as the wrapped object.
+Decorator adds behavior, not a new main contract.
+Decorator is usually implemented as a wrapper struct that stores the original object.
+A decorator method often calls the original object's method first, then adds extra logic.
+Extra behavior can be color, transparency, logging, validation, caching, and more.
+Decorator lets you add features without modifying the original struct.
+Decorator can be stacked, meaning one decorator can wrap another decorator.
+If the main goal is to make an old object fit a different interface, that is usually Adapter, not Decorator.
+Short formula: Decorator = same interface, richer behavior.
+
+
+Decorator can be stacked, meaning one decorator can wrap another decorator.
+func main() {
+	circle := Circle{2}
+	fmt.Println(circle.Render())
+
+	redCircle := ColoredShape{&circle, "Red"}
+	fmt.Println(redCircle.Render())
+
+	rhsCircle := TransparentShape{&redCircle, 0.5}
+	fmt.Println(rhsCircle.Render())
+}
+
+A decorator embeds the decorated object
+Adds utility fields and methods to augment the object's features
+Often used to emulate multiple inheritance (may require extra work)
