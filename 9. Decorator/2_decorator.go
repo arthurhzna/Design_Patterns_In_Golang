@@ -66,11 +66,11 @@ type Dragon struct {
   lizard Lizard
 }
 
-func (d *Dragon) Age() int {
+func (d *Dragon) Age() int { // 
   return d.bird.age
 }
 
-func (d *Dragon) SetAge(age int) {
+func (d *Dragon) SetAge(age int) { // 
   d.bird.SetAge(age)
   d.lizard.SetAge(age)
 }
@@ -99,3 +99,33 @@ func main() {
   d.Fly()
   d.Crawl()
 }
+
+
+//decorator murni
+// type Aged interface {
+//     Age() int
+//     SetAge(age int)
+// }
+
+// type Bird struct {
+//     age int
+// }
+
+// func (b *Bird) Age() int { return b.age }
+// func (b *Bird) SetAge(age int) { b.age = age }
+
+// type LoggingAged struct {
+//     inner Aged
+// }
+
+// func (l *LoggingAged) Age() int {
+//     fmt.Println("Age() called")
+//     return l.inner.Age()
+// }
+
+// func (l *LoggingAged) SetAge(age int) {
+//     fmt.Println("SetAge() called")
+//     l.inner.SetAge(age)
+// }
+
+//
