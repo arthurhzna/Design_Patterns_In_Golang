@@ -1,0 +1,128 @@
+Chain of Responsibility
+Sequence of handlers processing an event one after another 
+
+Unethical behavior by an employee; who takes the blame?
+    Employee
+    Manager
+    CEO
+You click a graphical element on a form 
+    Button handles it, stops further processing
+    Underlying group box
+    Underlying window
+CCG computer game
+    Creature has attack and defense values 
+    Those can be boosted by other cards
+
+Summary
+A chain of components who all get a chance to process a command or a query, 
+optionally having default processing implementation and an ability to terminate the processing chain.
+
+
+Proxy
+
+A proxy controls access to a real object and forwards the request to that object.
+
+Client -> Proxy -> Real Object
+
+Used for:
+
+access control
+lazy loading
+caching
+remote calls
+
+Example:
+
+CarProxy -> Car
+DBProxy  -> Database
+
+The proxy protects or manages access to the final resource.
+
+
+---------------------------------------------------------
+
+
+Chain of Responsibility
+
+A request is passed through multiple handlers until one of them handles it.
+
+Request -> Handler1 -> Handler2 -> Handler3
+
+Used for:
+
+approval systems
+middleware pipelines
+validation chains
+event bubbling
+
+Example:
+
+Employee -> Manager -> CEO
+
+Each handler has a chance to process the request or pass it to the next handler.
+
+Key Difference
+
+Proxy forwards to the real object.
+Chain of Responsibility forwards to the next possible handler.
+
+One-line Summary
+
+They may look similar in code, but Proxy protects access, while Chain of Responsibility delegates handling through a chain.
+
+Visual
+Chain
+Request
+ ↓
+A -> B -> C
+
+Composite
+Folder
+ ├── File1
+ ├── File2
+ └── Folder2
+      └── File3
+
+| Chain of Responsibility            | Composite                         |
+| ---------------------------------- | --------------------------------- |
+| Bentuk rantai / linear             | Bentuk tree / hierarchy           |
+| `next` satu node berikutnya (linked list)       | `children` banyak node  (array)          |
+| Request diteruskan sepanjang chain | Operasi dilakukan ke seluruh tree |
+| Fokus alur handling                | Fokus struktur bagian-keseluruhan |
+
+
+Command = asking for an action
+or change (e.g., please set your attack value to 2).
+
+Query = asking for information
+(e.g., please give me your attack value).
+
+CQS = having separate means of
+sending commands and queries to e.g., direct field access.
+
+| Aspect                | `3_method_chain.go`                          | `broker_chain.go`                              |
+| --------------------- | -------------------------------------------- | ---------------------------------------------- |
+| Main Pattern          | Classic Chain of Responsibility              | Broker Chain (Mediator + Observer + CQS)       |
+| Structure             | Linear linked chain using `next`             | Central event broker with subscribers          |
+| Handler Connection    | `Handler1 -> Handler2 -> Handler3`           | Multiple modifiers subscribe to `Game`         |
+| Data Flow             | Request passes through handlers sequentially | Query is broadcast to all active observers     |
+| State Change          | Directly modifies creature fields            | Does not modify base fields                    |
+| Stats Update          | Permanent mutation                           | Dynamic recalculated result                    |
+| Example Change        | `Attack *= 2`                                | `q.Value *= 2`                                 |
+| Trigger Time          | When `Handle()` is called                    | Every time `Attack()` / `Defense()` is queried |
+| Coupling              | Creature linked directly to modifiers        | Creature only knows `Game` broker              |
+| Add / Remove Modifier | Append to chain manually                     | Subscribe / Unsubscribe at runtime             |
+| Flexibility           | More static chain                            | Highly dynamic system                          |
+| Side Effects          | Changes object state directly                | Transforms query result temporarily            |
+| Reusability           | Simpler but less scalable                    | More scalable and extensible                   |
+| Best Use Case         | Simple modifier pipelines                    | Buff systems, event systems, plugin systems    |
+| Mental Model          | Linked list of handlers                      | Pub/Sub stat calculation engine                |
+
+One-line Summary
+
+3_method_chain.go permanently changes the creature through a handler chain, while broker_chain.go dynamically calculates stats through subscribed modifiers.
+
+Summary
+Chain of Responsibility can be implemented as a linked list of pointers or a centralized construct
+Enlist objects in the chain, possibly controlling their order Control object removal from chain
+Chain of Responsibility can be built either as a pointer-based chain or a central dispatcher that manages handlers dynamically.

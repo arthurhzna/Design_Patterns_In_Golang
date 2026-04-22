@@ -1,4 +1,4 @@
-package composite
+package main
 
 import (
 	"fmt"
@@ -49,4 +49,10 @@ func main() {
 	drawing.Children = append(drawing.Children, group)
 
 	fmt.Println(drawing.String())
+	// My Drawing
+	// *Red Square
+	// *Yellow Circle
+	// *Group 1
+	// **Blue Circle
+	// **Blue Square
 }
