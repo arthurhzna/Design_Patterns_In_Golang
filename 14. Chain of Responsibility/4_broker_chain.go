@@ -53,7 +53,7 @@ func (g *Game) Fire(q *Query) {
 	})
 }
 
-type Creature struct {
+type Creature struct { // define character with attack and defense
 	game            *Game
 	Name            string
 	attack, defense int // ← private!
@@ -62,6 +62,15 @@ type Creature struct {
 func NewCreature(game *Game, name string, attack int, defense int) *Creature {
 	return &Creature{game: game, Name: name, attack: attack, defense: defense}
 }
+
+// Every call to Attack() or Defense() creates a new Query and fires it through the game.
+// Remember: this is not a pointer.
+// SO AFTER, UNSUBSCRIBE THE MODIFIER
+// m := NewDoubleAttackModifier(game, goblin)
+// fmt.Println(goblin.String())
+// m.Close()
+// fmt.Println(goblin.String())
+// --> the double attack modifier is removed, goblin will have original attack and defense
 
 func (c *Creature) Attack() int {
 	q := Query{c.Name, Attack, c.attack}
@@ -114,15 +123,16 @@ func (d *DoubleAttackModifier) Close() error {
 
 func main() {
 	game := &Game{sync.Map{}}
-	goblin := NewCreature(game, "Strong Goblin", 2, 2)
+	goblin := NewCreature(game, "Strong Goblin", 2, 2) // define character with attack and defense
 	fmt.Println(goblin.String())
 	fmt.Println("-----")
 
 	{
-		m := NewDoubleAttackModifier(game, goblin)
-		fmt.Println(goblin.String())
-		m.Close()
-	}
+		m := NewDoubleAttackModifier(game, goblin) // add double attack modifier to the character, game name is "game", character name is "Strong Goblin"
+		fmt.Println(goblin.String())               // goblin will have double attack modifier
+		m.Close()                                  // remove the modifier
+	} // --> the double attack modifier is removed, goblin will have original attack and defense
 
+	// CANNOT USE m, after } block, m is out of scope
 	fmt.Println(goblin.String())
 }
