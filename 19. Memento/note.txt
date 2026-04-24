@@ -1,0 +1,116 @@
+Memento
+
+An object or system goes through changes
+• .g., a bank account gets deposits and withdrawals 
+
+There are different ways of navigating those changes
+
+One way is to record every change (Command) and teach a command to 'undo' itself
+• Also part of CQRS = Command Query Responsibility Segregation
+
+Another is to simply save snapshots of the system
+
+A token representing the system state. Lets us roll back to the state when the token was generated. 
+May or may not directly expose state information.
+
+
+Memento VS flyweight
+Both patterns provide a 'token' clients can hold on to Memento is used only to be fed back into the system
+• No public/mutable state
+• No methods
+A flyweight is similar to an ordinary reference to object
+• Can mutate state
+• Can provide additional functionality (fields/methods)
+
+Mementos are used to roll back states arbitrarily
+A memento is simply a token/handle with (typically) no methods of its own
+A memento is not required to expose directly the state(s) to which it reverts the system
+Can be used to implement undo/redo
+
+
+Flyweight vs Memento — Summary
+
+Flyweight is used to reduce memory usage by sharing common data between many objects.
+Instead of creating duplicate objects repeatedly, the system creates a small number of shared objects and reuses them.
+
+Memento is used to store snapshots of an object's state so it can be restored later (undo/redo).
+A new memento is usually created whenever the state needs to be saved.
+
+Key Difference
+Flyweight minimizes object creation.
+Memento intentionally creates new snapshot objects over time.
+
+Flyweight
+    package main
+
+    import "fmt"
+
+    var allNames = []string{"John", "Doe", "Jane"}
+
+    type User struct {
+        names []uint8
+    }
+
+    func NewUser(first, last uint8) User {
+        return User{[]uint8{first, last}}
+    }
+
+    func (u User) String() string {
+        return allNames[u.names[0]] + " " + allNames[u.names[1]]
+    }
+
+    func main() {
+        u1 := NewUser(0, 1) // John Doe
+        u2 := NewUser(2, 1) // Jane Doe
+
+        fmt.Println(u1.String())
+        fmt.Println(u2.String())
+    }
+
+Output
+
+John Doe
+Jane Doe
+
+Shared data: "Doe" only stored once.
+
+Memento
+
+    package main
+
+    import "fmt"
+
+    type Memento struct {
+        balance int
+    }
+
+    type BankAccount struct {
+        balance int
+    }
+
+    func (b *BankAccount) Deposit(amount int) {
+        b.balance += amount
+    }
+
+    func (b *BankAccount) Save() Memento {
+        return Memento{b.balance}
+    }
+
+    func (b *BankAccount) Restore(m Memento) {
+        b.balance = m.balance
+    }
+
+    func main() {
+        acc := BankAccount{100}
+
+        m1 := acc.Save()
+
+        acc.Deposit(50)
+        fmt.Println(acc.balance) // 150
+
+        acc.Restore(m1)
+        fmt.Println(acc.balance) // 100
+    }
+
+One-line Summary
+Flyweight shares repeated data, while Memento stores previous states.
