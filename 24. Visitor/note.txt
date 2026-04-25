@@ -1,0 +1,36 @@
+visitor 
+allow to adding extra behaviors to entire hierarchies of types 
+
+Need to define a new operation on an entire type hierarchy
+• E.g., given a document model (lists, paragraphs, etc.), we want to add printing functionality
+Do not want to keep modifying every type in the hierarchy
+Want to have the new functionality separate (SRP)
+This approach is often used for traversal
+Alternative to Iterator
+Hierarchy members help you traverse themselves
+
+Visitor
+A pattern where a component (visitor) is allowed to traverse 
+the entire hierarchy of types. Implemented by propagating a 
+single Accept method throughout the entire hierarchy.
+
+Dispatch
+Which function to call?
+Single dispatch: depends on name of request and type of receiver
+Double dispatch: depends on name of request and type of two receivers (type of visitor, type of element being visited)
+
+
+Classic visitor is a strong fit when…
+
+vs intrusive
+You have many different operations and you do not want domain
+structs cluttered with methods like Print, Evaluate, and so on.
+
+vs reflective
+You want to avoid a single function full of type switches,
+and you want behavior per concrete type to live in clear, separate places.
+
+Propagate an
+Accept(v *Visitor) method throughout the entire hierarchy 
+Create a visitor with VisitFoo(f Foo), VisitBar (b Bar), ... for each element in the hierarchy 
+Each Accept() simply calls Visitor.VisitXxx(self)
