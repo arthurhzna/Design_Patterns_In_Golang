@@ -1,5 +1,3 @@
-package main
-
 // =========================
 // Adapter
 // =========================
@@ -8,12 +6,11 @@ package main
 
 import "fmt"
 
-// interface yang dibutuhkan client
 type Printer interface {
 	Print()
 }
 
-// kode lama
+//old code
 type OldPrinter struct{}
 
 func (o *OldPrinter) PrintOld() {
@@ -84,7 +81,6 @@ func (r *Remote) PowerOff() {
 	r.device.Off()
 }
 
-// refined abstraction
 type AdvancedRemote struct {
 	Remote
 }
