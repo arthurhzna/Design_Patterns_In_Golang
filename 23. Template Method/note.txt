@@ -1,0 +1,26 @@
+template method
+a high level blueprint for an algorithm to  be complated by inheritors 
+
+Algorithms can be decomposed into common parts + specifics
+Strategy pattern does this through composition
+• High-level algorithm uses an interface
+• Concrete implementations implement the interface
+• We keep a pointer to the interface; provide concrete implementations Template Method performs a similar operation, but
+• It's typically just a function, not a struct with a reference to the implementation
+• Can still use interfaces (just like Strategy); or Can be functional (take several functions as parameters)
+
+Very similar to Strategy 
+Typical implementation:
+Define an interface with common operations,
+Make use of those operations inside a function
+You write a single template function that only calls 
+those operations in a fixed order. For example, 
+    PlayGame calls Start → loops TakeTurn while HaveWinner is 
+    false → prints WinningPlayer. The body of each operation is 
+    not written in that function; what you write there is only the flow.
+
+
+Alternative functional approach:
+Make a function that takes several functions,
+Can pass in functions that capture local state,
+No need for either structs or interfaces!
