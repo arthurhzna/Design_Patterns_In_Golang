@@ -1,2 +1,16 @@
 Observer
 i am watching you
+
+We need to be informed when certain things happen
+• Object's field changes
+• Object does something
+• Some external event occurs
+We want to listen to events and notified when they occur
+Two participants: observable and observer
+
+Observer is an intrusive approach Must provide a way of clients to subscribe
+Event data sent from observable to all observers
+Data represented as interfacef {} Unsubscription is possible
+
+Observer: One-to-many notification when state or events change; focus on who reacts and decoupling publishers from listeners.
+Memento: Capture and restore internal state (snapshots / undo / history) via a small memento object; focus on remembering past states, not broadcasting to many listeners.

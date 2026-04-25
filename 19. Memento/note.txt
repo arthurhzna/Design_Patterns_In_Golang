@@ -114,3 +114,13 @@ Memento
 
 One-line Summary
 Flyweight shares repeated data, while Memento stores previous states.
+
+
+Command
+What it is: Wraps a request or action in an object, usually with something like Execute() and often Undo().
+Why: Queue work, log operations, decouple UI from receivers, and batch many steps into one composite / macro command that runs with a single call.
+What you store: Operations and their parameters (not necessarily a full state snapshot unless you design it that way).
+Memento
+What it is: Saves a snapshot of an object’s state at a point in time so it can be restored without breaking the originator’s encapsulation.
+Why: Undo by reverting state, history/checkpoints, “before a big change.”
+What you store: State values (the fields that matter), not a list of operations.
