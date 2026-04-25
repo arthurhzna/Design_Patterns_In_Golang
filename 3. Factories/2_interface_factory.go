@@ -15,7 +15,7 @@ func (p *person) SayHello() {
 	fmt.Println("Hello, my name is", p.name)
 }
 
-func NewPerson(name string, age int) Person {
+func NewPerson(name string, age int) Person { //factory function
 	return &person{name, age}
 }
 

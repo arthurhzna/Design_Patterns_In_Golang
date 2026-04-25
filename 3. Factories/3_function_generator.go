@@ -33,10 +33,10 @@ func (f *EmployeeFactory) Create(name string) *Employee {
 }
 
 func main() {
-	developerFactory := NewEmployeeFactory("Developer", 60000)
-	managerFactory := NewEmployeeFactory("Manager", 80000)
+	developerFactory := NewEmployeeFactory("Developer", 60000) //just a function that returns a function
+	managerFactory := NewEmployeeFactory("Manager", 80000)     //just a function that returns a function
 
-	developer := developerFactory("Adam")
+	developer := developerFactory("Adam") // create a new employee with the name Adam, with developer position and 60000 annual income
 	//inside developerFactory("Adam") is:
 	// func(name string) *Employee {
 	// return &Employee{name, position, annualIncome}
