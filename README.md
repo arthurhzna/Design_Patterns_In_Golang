@@ -1,6 +1,6 @@
 # Design Patterns in Golang 🧠🐹
 
-summary and quick notes for design patterns practiced in this repository  🚀
+Summaries and quick notes on design patterns 🚀
 
 ## 🧭 Pattern Categories at a Glance
 
